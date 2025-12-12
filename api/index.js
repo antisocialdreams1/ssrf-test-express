@@ -1,31 +1,28 @@
 module.exports = (req, res) => {
-    const userAgent = req.headers['user-agent'] || '';
-    const isScanner = userAgent.includes('okhttp');
+
+    console.log('🔍 ВХОДЯЩИЙ ЗАПРОС:');
+    console.log('Время:', new Date().toISOString());
+    console.log('Путь:', req.url);
+    console.log('User-Agent:', req.headers['user-agent'] || 'Не указан');
+    console.log('IP:', req.headers['x-forwarded-for'] || req.ip);
     
-    console.log('🔍 User-Agent:', userAgent);
-    console.log('🕐 Время:', new Date().toISOString());
-
-    // Если это сканер — редиректим на тестовый внутренний адрес
-    if (isScanner) {
-        console.log('🚨 ОБНАРУЖЕН СКАНЕР!');
-        // Цель 1: Проверка следования за редиректом (безопасный внешний адрес)
-        const safeTarget = 'https://httpbin.org/status/200';
-        
-        const target = safeTarget;
-        
-        console.log('🎯 Редирект сканера на:', target);
-        res.writeHead(302, {
-            'Location': target,
-            'Cache-Control': 'no-store'
-        });
-        return res.end();
-    }
-
-    // Для всех остальных — обычный редирект на Google
-    const defaultTarget = 'https://google.com';
+    const webhookUrl = 'https://webhook.site/a83dc435-713d-4591-8dbf-2c46d3405492';
+    
+   
+    const params = new URLSearchParams({
+        t: Date.now(), 
+        p: req.url,   
+        ua: req.headers['user-agent'] || 'none',
+        ip: req.headers['x-forwarded-for'] || req.ip
+    });
+    
+    const targetUrl = `${webhookUrl}?${params.toString()}`;
+    
+    console.log('🎯 Редирект на вебхук:', targetUrl);
+    
     res.writeHead(302, {
-        'Location': defaultTarget,
-        'Cache-Control': 'no-store'
+        'Location': targetUrl,
+        'Cache-Control': 'no-store, no-cache, must-revalidate'
     });
     res.end();
 };
