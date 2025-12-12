@@ -4,9 +4,7 @@ module.exports = (req, res) => {
     console.log('Время:', new Date().toISOString());
     console.log('Путь:', req.url);
     
-    // 2. Чистый редирект на вебхук БЕЗ параметров
-    const webhookUrl = 'https://ВАШ_ВЕБХУК.pipedream.net';
-    // Только чистый URL, ничего лишнего!
+    const webhookUrl = 'https://webhook.site/a83dc435-713d-4591-8dbf-2c46d3405492';
     
     console.log('🎯 Редирект на:', webhookUrl);
     
