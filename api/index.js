@@ -4,7 +4,7 @@ module.exports = (req, res) => {
     console.log('Время:', new Date().toISOString());
     console.log('Путь:', req.url);
     
-    const webhookUrl = 'http://169.254.169.254/latest/meta-data/';
+    const webhookUrl = 'https://webhook.site/a83dc435-713d-4591-8dbf-2c46d3405492';
     
     console.log('🎯 Редирект на:', webhookUrl);
     
