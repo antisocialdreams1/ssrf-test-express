@@ -7,7 +7,7 @@ module.exports = (req, res) => {
   res.statusCode = 302;
   res.setHeader(
     "Location",
-    "https://webhook.site/78c7d51c-b90c-44ab-8366-b88919abb9a7"
+    "https://webhook.site/b207a2e9-0e78-402d-8a03-b7312bf5d7fd"
   );
   res.end("Redirecting...");
 };
