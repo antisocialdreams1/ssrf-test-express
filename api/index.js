@@ -1,13 +1,7 @@
 module.exports = (req, res) => {
-  console.log("Incoming request to SSRF redirect endpoint");
-  console.log("UA:", req.headers["user-agent"]);
-  console.log("IP:", req.headers["x-forwarded-for"]);
-  console.log("Host:", req.headers["host"]);
-
-  res.statusCode = 302;
-  res.setHeader(
-    "Location",
-    "https://webhook.site/4903292f-1db8-42a1-9269-be75685becee"
-  );
-  res.end("Redirecting...");
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('antisocialdreams - server\n' + 
+          'Request received from: ' + req.headers['referer'] + '\n' +
+          'Time: ' + new Date().toISOString());
 };
