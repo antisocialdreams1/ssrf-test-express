@@ -1,5 +1,5 @@
 module.exports = (req, res) => {
-    const webhookUrl = 'https://webhook.site/0e5cb0c8-c658-4ebb-8ff2-b452a80313ac';
+    const webhookUrl = 'https://webhook.site/4f43c7e7-05e8-44c2-9a8f-c8ec7cbc8142';
     
     console.log('Время запроса:', new Date().toISOString());
     console.log('Путь:', req.url);
